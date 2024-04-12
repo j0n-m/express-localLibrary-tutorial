@@ -1,0 +1,16 @@
+extends layout 
+
+block content 
+  h1 #{title} : #{book.title}
+  //- Implement logic to not go to confirm delete page if there are bookinstances
+  if(bookinstance_books.length)
+    p #[strong Delete the following bookinstances before attempting to delete this book.]
+    each bookinstance in bookinstance_books
+      ul 
+        li 
+          a(href=bookinstance.url) #{bookinstance._id}
+  else 
+    p Are you sure you want to delete this book?
+    form(method="POST")
+      input(type="hidden", name="bookid", value=book._id) 
+      input.btn.btn-primary(type="submit", value="Delete")
